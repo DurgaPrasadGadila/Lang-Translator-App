@@ -11,7 +11,7 @@ const fromText = document.querySelector(".from-text"),
           ? country_code == "en-GB"
             ? "selected"
             : ""
-          : country_code == "te-IN"
+          : country_code == "hi-IN"
           ? "selected"
           : "";
       let option = `<option ${selected} value="${country_code}">${countries[country_code]}</option>`;
