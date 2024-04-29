@@ -64,7 +64,7 @@ li,
   width: 38%;
 }
 .controls .row .icons i {
-  width: 50px;
+  width: 45px;
   color: #adadad;
   font-size: 14px;
   cursor: pointer;
@@ -115,7 +115,7 @@ li,
 .controls i:active {
   transform: scale(0.9);
 }
-.container button {
+.container button#click_to_record {
   width: 100%;
   padding: 14px;
   outline: none;
@@ -127,7 +127,6 @@ li,
   border-radius: 5px;
   background: #5372f0;
 }
-
 @media (max-width: 660px) {
   .container {
     padding: 20px;

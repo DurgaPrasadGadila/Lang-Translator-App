@@ -8,10 +8,10 @@ const fromText = document.querySelector(".from-text"),
     for (let country_code in countries) {
       let selected =
         id == 0
-          ? country_code == "en-GB"
+          ? country_code == "hi-IN"
             ? "selected"
             : ""
-          : country_code == "hi-IN"
+          : country_code == "en-GB"
           ? "selected"
           : "";
       let option = `<option ${selected} value="${country_code}">${countries[country_code]}</option>`;
@@ -38,6 +38,7 @@ translateBtn.addEventListener("click", () => {
   let text = fromText.value.trim(),
     translateFrom = selectTag[0].value,
     translateTo = selectTag[1].value;
+  // console.log(translateFrom);
   if (!text) return;
   toText.setAttribute("placeholder", "Translating...");
   let apiUrl = `https://api.mymemory.translated.net/get?q=${text}&langpair=${translateFrom}|${translateTo}`;
@@ -52,6 +53,21 @@ translateBtn.addEventListener("click", () => {
       });
       toText.setAttribute("placeholder", "Translation");
     });
+  // window.translateText = async () => {
+  //   const sourceText = document.getElementById("convert_text").innerHTML;
+  //   if (sourceText.length === 0) {
+  //     alert("No text to translate!");
+  //     return;
+  //   }
+  //   try {
+  //     const translation = await TranslateClient.translateTextToLanguage(sourceText, "en");
+  //     if (translation) {
+  //       translatedText.innerHTML = translation;
+  //     }
+  //   } catch (error) {
+  //     alert("There was an error translating the text: " + error.message);
+  //   }
+  // };
 });
 
 icons.forEach((icon) => {
@@ -75,4 +91,37 @@ icons.forEach((icon) => {
       speechSynthesis.speak(utterance);
     }
   });
+});
+
+click_to_record.addEventListener("click", function () {
+  var speech = true;
+  window.SpeechRecognition = window.webkitSpeechRecognition;
+
+  const recognition = new SpeechRecognition();
+  recognition.lang = selectTag[0].value;
+  recognition.interimResults = true;
+
+  recognition.addEventListener("result", (e) => {
+    const transcript = Array.from(e.results)
+      .map((result) => result[0])
+      .map((result) => result.transcript)
+      .join("");
+
+    document.getElementById("convert_text").innerHTML = transcript;
+    console.log(transcript);
+  });
+  if (speech == true) {
+    recognition.start();
+  }
+});
+
+click_to_record.addEventListener("click", function () {
+  var button = document.getElementById("click_to_record");
+  if (button.innerHTML === "Speak Now") {
+    button.innerHTML = "Translate Text";
+    button.style.backgroundColor = "green";
+  } else {
+    button.innerHTML = "Speak Now";
+    button.style.backgroundColor = "#5372f0";
+  }
 });
